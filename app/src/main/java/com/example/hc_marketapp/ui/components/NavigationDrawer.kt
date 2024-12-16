@@ -1,10 +1,6 @@
 package com.example.hc_marketapp.ui.components
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
@@ -15,44 +11,77 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import com.example.hc_marketapp.navigation.NavGraph
+import com.example.hc_marketapp.viewmodel.AppViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NavigationDrawerExample() {
+fun NavigationDrawerExample(navController: NavHostController) {
+    val viewModel: AppViewModel = viewModel()  // Get the ViewModel instance
+    val title = viewModel.title.value  // Access the title state
+
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet {
-                Text("Drawer title", modifier = Modifier.padding(16.dp))
+                Text("HCI Markets App", modifier = Modifier.padding(16.dp))
                 HorizontalDivider()
                 NavigationDrawerItem(
                     label = { Text(text = "Home") },
                     selected = false,
-                    onClick = { /*TODO*/ }
+                    onClick = {
+                        navController.navigate("home") // Navigate to Map
+                        viewModel.title.value = "Home"
+                        scope.launch { drawerState.close() } // Close drawer
+                    }
                 )
                 NavigationDrawerItem(
                     label = { Text(text = "Map") },
                     selected = false,
-                    onClick = { /*TODO*/ }
+                    onClick = {
+                        navController.navigate("map") // Navigate to Map
+                        viewModel.title.value = "Map"
+                        scope.launch { drawerState.close() } // Close drawer
+                    }
                 )
                 NavigationDrawerItem(
-                    label = { Text(text = "Item1") },
+                    label = { Text(text = "Markets") },
                     selected = false,
-                    onClick = { /*TODO*/ }
+                    onClick = {
+                        navController.navigate("markets") // Navigate to Map
+                        scope.launch { drawerState.close() } // Close drawer
+                    }
                 )
                 NavigationDrawerItem(
-                    label = { Text(text = "Item2") },
+                    label = { Text(text = "News") },
                     selected = false,
-                    onClick = { /*TODO*/ }
+                    onClick = {
+                        navController.navigate("news") // Navigate to Map
+                        viewModel.title.value = "News"
+                        scope.launch { drawerState.close() } // Close drawer
+                    }
+                )
+                NavigationDrawerItem(
+                    label = { Text(text = "Settings") },
+                    selected = false,
+                    onClick = {
+                        navController.navigate("settings") // Navigate to Map
+                        viewModel.title.value = "Settings"
+                        scope.launch { drawerState.close() } // Close drawer
+                    }
                 )
                 // ...other drawer items
             }
         }
     ) {
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+        //val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -65,7 +94,7 @@ fun NavigationDrawerExample() {
                     ),
                     title = {
                         Text(
-                            "Centered Top App Bar",
+                            title,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
@@ -90,22 +119,22 @@ fun NavigationDrawerExample() {
                 )
             },
         ) { innerPadding ->
-            ScrollContent(innerPadding)
-        }
-    }
-}
+            NavGraph(
+                navController = navController,
+                modifier = Modifier.padding(innerPadding)
+            )
 
-@Composable
-fun ScrollContent(innerPadding: PaddingValues) {
-    val range = 1..100
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize(),
-        contentPadding = innerPadding,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(range.count()) { index ->
-            Text(text = "- List item number ${index + 1}")
+//            val range = 1..100
+//            LazyColumn(
+//                modifier = Modifier
+//                    .fillMaxSize(),
+//                contentPadding = innerPadding,
+//                verticalArrangement = Arrangement.spacedBy(8.dp)
+//            ) {
+//                items(range.count()) { index ->
+//                    Text(text = "- List item number ${index + 1}")
+//                }
+//            }
         }
     }
 }
