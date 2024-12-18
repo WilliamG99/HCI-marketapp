@@ -108,7 +108,10 @@ fun NavigationDrawerExample(navController: NavHostController) {
                         }
                     },
                     actions = {
-                        IconButton(onClick = { /* do something */ }) {
+                        IconButton(onClick = {
+                            navController.navigate("settings") // Navigate to Map
+                            viewModel.title.value = "Settings"
+                        }) {
                             Icon(
                                 imageVector = Icons.Filled.Settings,
                                 contentDescription = "Localized description"
