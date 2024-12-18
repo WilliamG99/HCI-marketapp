@@ -53,6 +53,8 @@ dependencies {
 
     // Add this for Jetpack Compose Navigation
     implementation(libs.androidx.navigation.compose)
+    // Add for Extended Icons
+    implementation(libs.androidx.material.icons.extended)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
