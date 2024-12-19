@@ -14,7 +14,7 @@ import com.example.hc_marketapp.ui.pages.Settings
 @Composable
 fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(navController, startDestination = "home") {
-        composable("home") { Home(modifier = modifier) }
+        composable("home") { Home(modifier = modifier, navController) }
         composable("map") { Map(modifier = modifier) }
         composable("markets") { Markets(modifier = modifier) }
         composable("news") { News(modifier = modifier) }

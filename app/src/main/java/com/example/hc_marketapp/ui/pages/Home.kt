@@ -16,6 +16,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Newspaper
+import androidx.compose.material.icons.filled.Storefront
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,12 +27,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.hc_marketapp.R
+import com.example.hc_marketapp.ui.theme.HC_marketappTheme
+import com.example.hc_marketapp.viewmodel.AppViewModel
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Home(modifier: Modifier = Modifier) {
+fun Home(modifier: Modifier = Modifier, navController: NavHostController) {
     BoxWithConstraints(modifier = modifier.fillMaxSize()) {
+        val viewModel: AppViewModel = viewModel()  // Get the ViewModel instance
+        val title = viewModel.title.value  // Access the title state
+
         //val boxWithConstraintsScope = this
         val totalHeight = this.maxHeight
 
@@ -48,12 +57,10 @@ fun Home(modifier: Modifier = Modifier) {
                     .height(totalHeight * 0.51f)
                     .padding(0.dp)
             ) {
-
                 Row(
                     modifier = Modifier.padding(48.dp, 8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
-
                 ){
                     Icon(
                         imageVector = Icons.Filled.Newspaper,
@@ -61,7 +68,6 @@ fun Home(modifier: Modifier = Modifier) {
                     )
                     Text("Recent News", style = MaterialTheme.typography.headlineSmall)
                 }
-
 
                 // Display 10 items
                 val pagerState = rememberPagerState(pageCount = {
@@ -73,6 +79,10 @@ fun Home(modifier: Modifier = Modifier) {
                     ) { page ->
                     // Our page content
                     Card(
+                        onClick = {
+                            navController.navigate("news") // Navigate to Map
+                            viewModel.title.value = "News"
+                        },
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.background,
                         ),
@@ -95,7 +105,7 @@ fun Home(modifier: Modifier = Modifier) {
                             style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(10.dp, 5.dp),
+                                .padding(10.dp, 0.dp),
                             //textAlign = TextAlign.Center,
                         )
                         Image(
@@ -120,50 +130,156 @@ fun Home(modifier: Modifier = Modifier) {
                 }
             }
 
-            HorizontalDivider(thickness = 1.dp)
+            HorizontalDivider(
+                thickness = 1.dp,
+                modifier = Modifier.padding(10.dp)
+            )
 
             // Markets Section
             Column (
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(totalHeight * 0.5f) // 30% of screen height
+                    .height(totalHeight * 0.5f)
                     .padding(0.dp)
             ) {
-                //Text("Another row inside page column", style = MaterialTheme.typography.headlineSmall)
+
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(totalHeight * 0.5f)
-                        //.background(MaterialTheme.colorScheme.secondary)
-                ) {
-                    // Display 10 items
-                    val pagerState = rememberPagerState(pageCount = {
-                        10
-                    })
-                    HorizontalPager(state = pagerState) { page ->
-                        // Our page content
-                        Text(
-                            text = "Page: $page",
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    }
-                }
-            }
+                    modifier = Modifier.padding(48.dp, 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
 
-
-            repeat(20) { index ->
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
-                ) {
-                    Text(
-                        "Item #$index",
-                        modifier = Modifier.padding(16.dp)
+                ){
+                    Icon(
+                        imageVector = Icons.Filled.Storefront,
+                        contentDescription = "Localized description"
                     )
+                    Text("Market Activity", style = MaterialTheme.typography.headlineSmall)
+                }
+
+                HC_marketappTheme{
+                    ElevatedCard(
+                        elevation = CardDefaults.cardElevation(
+                            defaultElevation = 4.dp
+                        ),
+                        colors = CardDefaults.elevatedCardColors(
+                            containerColor = MaterialTheme.colorScheme.background,
+                        ),
+
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(totalHeight * 0.1f)
+                            .padding(36.dp, 8.dp),
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(16.dp, 12.dp, 0.dp, 12.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
+                                Text(
+                                    "Norwich Market",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(0.dp),
+                                )
+                                Text(
+                                    "Very Busy",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    modifier = Modifier.padding(0.dp),
+                                )
+                            }
+                            Text(
+                                text = "Image will go here",
+                                textAlign = TextAlign.End
+                            )
+                        }
+                    }
+                    ElevatedCard(
+                        elevation = CardDefaults.cardElevation(
+                            defaultElevation = 4.dp
+                        ),
+                        colors = CardDefaults.elevatedCardColors(
+                            containerColor = MaterialTheme.colorScheme.background,
+                        ),
+
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(totalHeight * 0.1f)
+                            .padding(36.dp, 8.dp),
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(16.dp, 12.dp, 0.dp, 12.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
+                                Text(
+                                    "Worstead Farmers Market",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(0.dp),
+                                )
+                                Text(
+                                    "Not Busy",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    modifier = Modifier.padding(0.dp),
+                                )
+                            }
+                            Text(
+                                text = "Image will go here",
+                                textAlign = TextAlign.End
+                            )
+                        }
+
+                    }
+                    ElevatedCard(
+                        elevation = CardDefaults.cardElevation(
+                            defaultElevation = 4.dp
+                        ),
+                        colors = CardDefaults.elevatedCardColors(
+                            containerColor = MaterialTheme.colorScheme.background,
+                        ),
+
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(totalHeight * 0.1f)
+                            .padding(36.dp, 8.dp),
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(16.dp, 12.dp, 0.dp, 12.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
+                                Text(
+                                    "Sheringham Market",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(0.dp),
+                                )
+                                Text(
+                                    "Quiet",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    modifier = Modifier.padding(0.dp),
+                                )
+                            }
+                            Text(
+                                text = "Image will go here",
+                                textAlign = TextAlign.End
+                            )
+                        }
+                    }
+
                 }
             }
+
+
         }
     }
 }
