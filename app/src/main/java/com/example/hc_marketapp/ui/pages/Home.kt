@@ -39,7 +39,7 @@ import com.example.hc_marketapp.viewmodel.AppViewModel
 fun Home(modifier: Modifier = Modifier, navController: NavHostController) {
     BoxWithConstraints(modifier = modifier.fillMaxSize()) {
         val viewModel: AppViewModel = viewModel()  // Get the ViewModel instance
-        val title = viewModel.title.value  // Access the title state
+        //val title = viewModel.title.value  // Access the title state
 
         //val boxWithConstraintsScope = this
         val totalHeight = this.maxHeight
