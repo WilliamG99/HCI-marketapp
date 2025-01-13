@@ -181,7 +181,7 @@ By email: norwichfake@email.com
                 Button(onClick = {
                     // Save the agreement flag and navigate to Home screen
                     sharedPreferences.edit().putBoolean("agreed_to_terms", true).apply()
-                    navController.navigate("home")
+                    navController.navigate("task_screen")
                 }) {
                     Text("Accept")
                 }
