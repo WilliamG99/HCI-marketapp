@@ -12,7 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.CameraPosition
@@ -21,7 +21,7 @@ import com.google.maps.android.compose.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Map(modifier: Modifier = Modifier) {
+fun MapScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     var locationPermissionGranted by remember { mutableStateOf(false) }
     val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
@@ -57,20 +57,28 @@ fun Map(modifier: Modifier = Modifier) {
         }
     }
 
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        if (locationPermissionGranted && currentLocation != null) {
-            GoogleMap(
-                modifier = Modifier.fillMaxSize(),
-                cameraPositionState = cameraPositionState,
-                uiSettings = MapUiSettings(zoomControlsEnabled = true)
-            ) {
-                Marker(
-                    state = rememberMarkerState(position = currentLocation!!),
-                    title = "You are here"
-                )
+    if (LocalContext.current !is androidx.compose.ui.tooling.preview.PreviewParameterProvider<*>) {
+        // Real device or emulator: Show Google Map
+        Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            if (locationPermissionGranted && currentLocation != null) {
+                GoogleMap(
+                    modifier = Modifier.fillMaxSize(),
+                    cameraPositionState = cameraPositionState,
+                    uiSettings = MapUiSettings(zoomControlsEnabled = true)
+                ) {
+                    Marker(
+                        state = rememberMarkerState(position = currentLocation!!),
+                        title = "You are here"
+                    )
+                }
+            } else {
+                Text("Please grant location permission to see the map.")
             }
-        } else {
-            Text("Please grant location permission to see the map.")
+        }
+    } else {
+        // Compose Preview: Show placeholder message
+        Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Text("Map Preview Unavailable")
         }
     }
 }
@@ -85,4 +93,10 @@ private fun getCurrentLocation(
             onLocationReceived(location)
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MapScreenPreview() {
+    MapScreen(modifier = Modifier.fillMaxSize())
 }

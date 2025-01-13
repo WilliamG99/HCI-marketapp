@@ -2,14 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="PUT API KEY HERE" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-
 
     <application
         android:allowBackup="true"
@@ -21,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HC_marketapp"
         tools:targetApi="31">
+
+        <!-- Google Maps API Key -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAKob8uKQlwm_-uvdK9MC-ABUCxbgy7omI" />
+
         <activity
             android:name=".Page2Example"
             android:exported="false"
@@ -33,10 +34,10 @@
             android:theme="@style/Theme.HC_marketapp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

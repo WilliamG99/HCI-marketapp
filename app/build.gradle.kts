@@ -38,6 +38,9 @@ android {
     buildFeatures {
         compose = true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.2"
+    }
 }
 
 dependencies {
@@ -55,6 +58,14 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     // Add for Extended Icons
     implementation(libs.androidx.material.icons.extended)
+
+    // Added dependencies for Google Maps and location services
+    implementation("com.google.maps.android:maps-compose:2.1.0")
+    implementation("com.google.android.gms:play-services-maps:18.0.2")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
+
+    // Accompanist library for handling permissions in Jetpack Compose
+    implementation("com.google.accompanist:accompanist-permissions:0.30.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
