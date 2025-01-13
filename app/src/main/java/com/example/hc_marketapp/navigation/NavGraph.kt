@@ -16,7 +16,8 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
         composable("location_permission") { LocationPermissionScreen(navController = navController) }
         composable("set_home_location") { SetHomeLocationScreen(navController = navController) }
         composable("home") { Home(modifier = modifier, navController) }
-        composable("news") { News(modifier = modifier) }
+        composable("news") { News(modifier = modifier, navController) }
+        composable("newsarticle") { NewsArticle(modifier = modifier, navController) }
         composable("map") { MapScreen(modifier = modifier) }
         composable("markets") { Markets(modifier = modifier) }
         composable("settings") { Settings(modifier = modifier, navController = navController) }

@@ -80,8 +80,8 @@ fun Home(modifier: Modifier = Modifier, navController: NavHostController) {
                     // Our page content
                     Card(
                         onClick = {
-                            navController.navigate("news") // Navigate to Map
-                            viewModel.title.value = "News"
+                            navController.navigate("newsarticle") // Navigate to Map
+                            viewModel.title.value = "NewsArticle"
                         },
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.background,

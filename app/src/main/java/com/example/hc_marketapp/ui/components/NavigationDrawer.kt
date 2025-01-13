@@ -26,8 +26,11 @@ fun NavigationDrawerExample(navController: NavHostController) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
+
+
     ModalNavigationDrawer(
         drawerState = drawerState,
+        gesturesEnabled = title != "Map",
         drawerContent = {
             ModalDrawerSheet {
                 Text("HCI Markets App", modifier = Modifier.padding(16.dp))
