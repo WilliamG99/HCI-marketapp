@@ -33,9 +33,7 @@ fun News(modifier: Modifier = Modifier, navController: NavHostController) {
         val totalHeight = this.maxHeight
 
         // Display 10 items
-        val pagerState = rememberPagerState(pageCount = {
-            10
-        })
+        val pagerState = rememberPagerState(pageCount = {10})
 
         VerticalPager(
             state = pagerState,

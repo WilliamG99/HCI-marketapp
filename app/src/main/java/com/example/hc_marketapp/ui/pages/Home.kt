@@ -190,9 +190,12 @@ fun Home(modifier: Modifier = Modifier, navController: NavHostController) {
                                     modifier = Modifier.padding(0.dp),
                                 )
                             }
-                            Text(
-                                text = "Image will go here",
-                                textAlign = TextAlign.End
+                            Image(
+                                painter = painterResource(id = R.drawable.norwich_market_times_crop), // Replace with your image name
+                                contentDescription = "Local Image",
+                                modifier = Modifier
+                                    .padding(0.dp, 0.dp),
+                                contentScale = ContentScale.FillWidth // Scales the image to fill the area
                             )
                         }
                     }
@@ -229,9 +232,13 @@ fun Home(modifier: Modifier = Modifier, navController: NavHostController) {
                                     modifier = Modifier.padding(0.dp),
                                 )
                             }
-                            Text(
-                                text = "Image will go here",
-                                textAlign = TextAlign.End
+
+                            Image(
+                                painter = painterResource(id = R.drawable.worstead_market_times_crop), // Replace with your image name
+                                contentDescription = "Local Image",
+                                modifier = Modifier
+                                    .padding(6.dp, 0.dp),
+                                contentScale = ContentScale.FillWidth // Scales the image to fill the area
                             )
                         }
 
@@ -269,9 +276,12 @@ fun Home(modifier: Modifier = Modifier, navController: NavHostController) {
                                     modifier = Modifier.padding(0.dp),
                                 )
                             }
-                            Text(
-                                text = "Image will go here",
-                                textAlign = TextAlign.End
+                            Image(
+                                painter = painterResource(id = R.drawable.sheringham_market_times_crop), // Replace with your image name
+                                contentDescription = "Local Image",
+                                modifier = Modifier
+                                    .padding(0.dp, 0.dp),
+                                contentScale = ContentScale.FillWidth // Scales the image to fill the area
                             )
                         }
                     }

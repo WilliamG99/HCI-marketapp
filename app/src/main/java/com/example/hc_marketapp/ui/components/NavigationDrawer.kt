@@ -58,6 +58,7 @@ fun NavigationDrawerExample(navController: NavHostController) {
                     selected = false,
                     onClick = {
                         navController.navigate("markets") // Navigate to Map
+                        viewModel.title.value = "Markets"
                         scope.launch { drawerState.close() } // Close drawer
                     }
                 )
