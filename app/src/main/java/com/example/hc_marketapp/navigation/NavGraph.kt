@@ -9,8 +9,8 @@ import com.example.hc_marketapp.ui.pages.*
 
 @Composable
 fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
-    NavHost(navController, startDestination = "markets") {
-        composable("terms_and_conditions") { TermsAndConditionsScreen(navController = navController) }
+    NavHost(navController, startDestination = "terms_and_conditions") {
+        composable("terms_and_conditions") { TermsAndConditionsScreen(modifier = modifier, navController) }
         composable("task_screen") { TaskScreen(navController = navController) }
         composable("market_selection") { MarketSelectionScreen(navController = navController) }
         composable("location_permission") { LocationPermissionScreen(navController = navController) }

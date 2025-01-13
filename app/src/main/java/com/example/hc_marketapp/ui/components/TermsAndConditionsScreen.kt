@@ -3,6 +3,8 @@ package com.example.hc_marketapp.ui.pages
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 @Composable
-fun TermsAndConditionsScreen(navController: NavController) {
+fun TermsAndConditionsScreen(modifier: Modifier = Modifier, navController: NavController) {
     val context = LocalContext.current
     val sharedPreferences = remember { getSharedPreferences(context) }
     var agreed by remember { mutableStateOf(false) }
@@ -22,7 +24,8 @@ fun TermsAndConditionsScreen(navController: NavController) {
     LaunchedEffect(Unit) {
         agreed = sharedPreferences.getBoolean("agreed_to_terms", false)
         if (agreed) {
-            navController.navigate("home") // Navigate to Home screen if already agreed
+            // Commented out so it appears every time for demonstrations purposes.
+            //navController.navigate("home") // Navigate to Home screen if already agreed
         }
     }
 
@@ -33,9 +36,9 @@ fun TermsAndConditionsScreen(navController: NavController) {
         Text("Accept")
     }
 
-    if (!agreed) {
+    if (agreed || !agreed) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .padding(16.dp),
             verticalArrangement = Arrangement.Center,
@@ -54,6 +57,7 @@ fun TermsAndConditionsScreen(navController: NavController) {
                     .fillMaxWidth()
                     .weight(1f)
                     .padding(8.dp)
+                    .verticalScroll(rememberScrollState())
             ) {
                 Text(
                     text = """
